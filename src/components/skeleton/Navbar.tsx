@@ -1,9 +1,12 @@
-import { CONSTANT_COMPANY_LOGO } from '@/utils/constants'
+import { CONSTANT_COMPANY_LOGO, CONSTANT_FRONTEND_URL } from '@/utils/constants'
 import { Col, Input, Layout, Row, Space } from 'antd'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import AddProductButton from '../@AddProduct/AddProductButton'
 
 const Navbar = () => {
+  const { pathname, push } = useRouter()
+
   return (
     <Layout.Header>
       <Row>
@@ -14,19 +17,25 @@ const Navbar = () => {
               height={48}
               width={100}
               alt={'Company logo'}
+              style={{ cursor: 'pointer' }}
+              onClick={() => push(CONSTANT_FRONTEND_URL.BASE_PATH)}
             />
-            <Input.Search
-              addonBefore=""
-              placeholder="Search product..."
-              allowClear
-              onSearch={() => {}}
-              style={{ width: 280, verticalAlign: 'middle' }}
-            />
+            {pathname === CONSTANT_FRONTEND_URL.BASE_PATH && (
+              <Input.Search
+                addonBefore=""
+                placeholder="Search product..."
+                allowClear
+                onSearch={() => {}}
+                style={{ width: 280, verticalAlign: 'middle' }}
+              />
+            )}
           </Space>
         </Col>
-        <Col flex="200px">
-          <AddProductButton />
-        </Col>
+        {pathname === CONSTANT_FRONTEND_URL.BASE_PATH && (
+          <Col flex="200px">
+            <AddProductButton />
+          </Col>
+        )}
       </Row>
     </Layout.Header>
   )
