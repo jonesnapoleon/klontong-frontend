@@ -1,4 +1,5 @@
 import { useProductQuery } from '@/services/product'
+import { AtLeastOne } from '@/services/type'
 import {
   Dispatch,
   SetStateAction,
@@ -19,8 +20,8 @@ type IProductProviderProps = {
 }
 
 type IProductProviderReturnValue = {
-  products: Product[]
-  searchResults: Product[]
+  products: AtLeastOne<Product>[]
+  searchResults: AtLeastOne<Product>[]
   query: string
   setQuery: SetStateAction<Dispatch<string>>
 }
