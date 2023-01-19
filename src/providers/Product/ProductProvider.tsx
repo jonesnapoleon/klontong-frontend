@@ -1,14 +1,31 @@
 import { useProductQuery } from '@/services/product'
-import { createContext, useContext, useMemo, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from 'react'
+import { Product } from './type'
 
-const ProductContext = createContext({})
-export const useProduct = () => useContext(ProductContext)
+const ProductContext = createContext<IProductProviderReturnValue | null>(null)
+
+export const useProduct = () =>
+  useContext(ProductContext) as IProductProviderReturnValue
 
 type IProductProviderProps = {
-  children: JSX.Element
+  children: React.ReactNode
 }
 
-const ProductProvider = ({ children }: IProductProviderProps) => {
+type IProductProviderReturnValue = {
+  products: Product[]
+  searchResults: Product[]
+  query: string
+  setQuery: SetStateAction<Dispatch<string>>
+}
+
+const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
   const [query, setQuery] = useState('')
 
   const { data: products } = useProductQuery()
@@ -24,7 +41,7 @@ const ProductProvider = ({ children }: IProductProviderProps) => {
   return (
     <ProductContext.Provider
       value={{
-        products,
+        products: products ?? [],
         searchResults,
         query,
         setQuery,

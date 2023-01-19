@@ -1,8 +1,8 @@
 import { useProduct } from '@/providers/Product/ProductProvider'
 
 const AllProducts = () => {
-  const { product } = useProduct()
-  console.log(product)
+  const { products } = useProduct()
+  console.log(products)
   return <div>Home</div>
 }
 
