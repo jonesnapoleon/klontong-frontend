@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useProduct } from '@/providers/Product/ProductProvider'
+import { obtainColorFromCategory } from '@/providers/Product/helper'
+import { ProductCategoryType } from '@/providers/Product/type'
 import { formatIDR } from '@/utils/transformers'
-import { Col, Divider, Empty, Row, Space, Typography } from 'antd'
+import { Col, Empty, Row, Space, Tag, Typography } from 'antd'
 import { useRouter } from 'next/router'
 
 const ProductDetail = () => {
@@ -32,14 +34,21 @@ const ProductDetail = () => {
         />
       </Col>
       <Col xs={24} md={12}>
-        <Typography.Title>{product?.name}</Typography.Title>
-        <Divider orientation="left" />
+        <Typography.Title style={{ marginBottom: '1rem' }}>
+          {product?.name}
+        </Typography.Title>
 
-        <Space>
-          <Typography.Title level={4}>
+        <Space style={{ marginBottom: '2rem' }}>
+          <Typography.Title level={4} style={{ marginBottom: 0 }}>
             {formatIDR(product?.price!)}
           </Typography.Title>
-          <Tag color={obtainColorFromCategory(product.name!)}>magenta</Tag>
+          <Tag
+            color={obtainColorFromCategory(
+              product?.categoryName! as ProductCategoryType
+            )}
+          >
+            {product?.categoryName}
+          </Tag>
         </Space>
 
         <Typography.Paragraph>{product?.description}</Typography.Paragraph>

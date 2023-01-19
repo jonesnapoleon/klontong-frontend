@@ -24,6 +24,7 @@ type IProductProviderReturnValue = {
   searchResults: AtLeastOne<Product>[]
   query: string
   setQuery: SetStateAction<Dispatch<string>>
+  obtainProductDataFromId: (id: string) => AtLeastOne<Product> | undefined
 }
 
 const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
@@ -39,6 +40,12 @@ const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
     [query, products]
   )
 
+  const obtainProductDataFromId = (
+    id: string
+  ): AtLeastOne<Product> | undefined => {
+    return products?.filter((product) => product?._id === id)?.[0]
+  }
+
   return (
     <ProductContext.Provider
       value={{
@@ -46,6 +53,7 @@ const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
         searchResults,
         query,
         setQuery,
+        obtainProductDataFromId,
       }}
     >
       {children}
