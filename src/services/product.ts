@@ -30,7 +30,7 @@ export const useProductMutation = () => {
     },
     {
       onSuccess: (newProduct: IProductDatumResponse) => {
-        queryClient.setQueryData<IProductDatumResponse>(
+        queryClient.setQueryData<IProductDataResponse>(
           [CONSTANT_RESOURCE_MAPPING],
           (currentProducts: IProductDataResponse | undefined) => {
             console.log(currentProducts, newProduct)
