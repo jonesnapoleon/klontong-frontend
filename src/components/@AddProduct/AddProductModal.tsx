@@ -2,6 +2,7 @@ import { productCategories } from '@/providers/Product/constant'
 import { useProductMutation } from '@/services/product'
 import { transformToOptions } from '@/utils/transformers'
 import { Button, Form, Input, InputNumber, Modal, Select } from 'antd'
+import { openNotification } from '../meta/snackbar'
 
 type IAddProductModal = {
   isOpen: boolean
@@ -12,7 +13,12 @@ const AddProductModal = ({ isOpen, closeModal }: IAddProductModal) => {
   const [form] = Form.useForm()
   const { mutate, isLoading } = useProductMutation()
 
-  const onFinishFailed = (errorInfo: any) => console.log('Failed:', errorInfo)
+  const onFinishFailed = (errorInfo: any) => {
+    openNotification(
+      "Something's wrong",
+      errorInfo?.errorFields?.[0]?.errors?.[0] ?? ''
+    )
+  }
 
   return (
     <Form
@@ -22,6 +28,7 @@ const AddProductModal = ({ isOpen, closeModal }: IAddProductModal) => {
       layout="horizontal"
       onFinish={(values) => {
         mutate(values)
+        openNotification('Success', `New product added: ${values.name}`)
         closeModal()
       }}
       onFinishFailed={onFinishFailed}
