@@ -1,12 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
+import ProductDetail from '@/components/@ProductDetail'
 import { useProduct } from '@/providers/Product/ProductProvider'
-import { obtainColorFromCategory } from '@/providers/Product/helper'
-import { ProductCategoryType } from '@/providers/Product/type'
-import { formatIDR } from '@/utils/transformers'
-import { Col, Empty, Row, Space, Tag, Typography } from 'antd'
+import { Empty, Typography } from 'antd'
 import { useRouter } from 'next/router'
 
-const ProductDetail = () => {
+const ProductDetailPage = () => {
   const router = useRouter()
   const { id } = router.query
 
@@ -24,37 +21,7 @@ const ProductDetail = () => {
       </>
     )
 
-  return (
-    <Row justify="center" align="middle">
-      <Col xs={24} md={12}>
-        <img
-          src={product?.image!}
-          alt={product?.name!}
-          style={{ width: '80%', display: 'block', margin: 'auto' }}
-        />
-      </Col>
-      <Col xs={24} md={12}>
-        <Typography.Title style={{ marginBottom: '1rem' }}>
-          {product?.name}
-        </Typography.Title>
-
-        <Space style={{ marginBottom: '2rem' }}>
-          <Typography.Title level={4} style={{ marginBottom: 0 }}>
-            {formatIDR(product?.price!)}
-          </Typography.Title>
-          <Tag
-            color={obtainColorFromCategory(
-              product?.categoryName! as ProductCategoryType
-            )}
-          >
-            {product?.categoryName}
-          </Tag>
-        </Space>
-
-        <Typography.Paragraph>{product?.description}</Typography.Paragraph>
-      </Col>
-    </Row>
-  )
+  return <ProductDetail product={product} />
 }
 
-export default ProductDetail
+export default ProductDetailPage

@@ -1,0 +1,11 @@
+.productdetail_image {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .productdetail_image {
+    width: 100%;
+  }
+}
