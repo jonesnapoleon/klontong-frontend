@@ -6,8 +6,6 @@
 @media only screen and (max-width: 685px) {
   .layout_content {
     padding: calc(28px + 40px) 30px 28px;
-    display: grid;
-    place-items: center;
   }
 
   .header {

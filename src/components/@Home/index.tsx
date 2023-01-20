@@ -2,6 +2,7 @@ import { useProduct } from '@/providers/Product/ProductProvider'
 import { Empty, Row } from 'antd'
 import AddProductButton from '../@AddProduct/AddProductButton'
 import ProductCard from './ProductCard'
+import styles from './home.module.css'
 
 const AllProducts = () => {
   const { displayedProducts } = useProduct()
@@ -13,12 +14,14 @@ const AllProducts = () => {
       ))}
     </Row>
   ) : (
-    <Empty
-      image={Empty.PRESENTED_IMAGE_SIMPLE}
-      description={<span>Currently no product available</span>}
-    >
-      <AddProductButton />
-    </Empty>
+    <section className={styles.center_vertical}>
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={<span>Currently no product available</span>}
+      >
+        <AddProductButton />
+      </Empty>
+    </section>
   )
 }
 

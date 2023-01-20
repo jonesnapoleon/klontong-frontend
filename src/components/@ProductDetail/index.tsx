@@ -11,29 +11,29 @@ type IProductDetailProps = {
 
 const ProductDetail: React.FC<IProductDetailProps> = ({ product }) => {
   return (
-    <Row justify="center" align="middle" style={{ height: '100%' }}>
+    <Row justify="center" align="middle">
       <Col xs={24} md={12}>
         <img
-          src={product?.image!}
-          alt={product?.name!}
+          src={product.image}
+          alt={product.name}
           className={styles.productdetail_image}
         />
       </Col>
       <Col xs={24} md={12}>
         <Typography.Title style={{ marginBottom: '1rem' }}>
-          {product?.name}
+          {product.name}
         </Typography.Title>
 
         <Space style={{ marginBottom: '2rem' }}>
           <Typography.Title level={4} style={{ marginBottom: 0 }}>
-            {formatIDR(product?.price!)}
+            {formatIDR(product.price)}
           </Typography.Title>
           <Tag
             color={obtainColorFromCategory(
-              product?.categoryName! as ProductCategoryType
+              product.categoryName as ProductCategoryType
             )}
           >
-            {product?.categoryName}
+            {product.categoryName}
           </Tag>
         </Space>
 
@@ -47,7 +47,7 @@ const ProductDetail: React.FC<IProductDetailProps> = ({ product }) => {
           </Button>
         </Row>
 
-        <Typography.Paragraph>{product?.description}</Typography.Paragraph>
+        <Typography.Paragraph>{product.description}</Typography.Paragraph>
       </Col>
     </Row>
   )

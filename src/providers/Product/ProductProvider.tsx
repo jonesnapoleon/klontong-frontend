@@ -43,7 +43,7 @@ const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
   const searchResults = useMemo(
     () =>
       products?.filter((product) =>
-        product?.name?.toLowerCase()?.includes(query.trim().toLowerCase())
+        product.name?.toLowerCase()?.includes(query.trim().toLowerCase())
       ) ?? [],
     [query, products]
   )
