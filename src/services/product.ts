@@ -29,7 +29,7 @@ export const useProductQuery = () => {
     [CONSTANT_RESOURCE_MAPPING],
     async () => {
       const data = await abstractFetcher<IProductDataResponse>({
-        url: `${CONSTANT_RESOURCE_MAPPING}?rq_uid=NX5Qp7z4eBhUaZWofEAxFSkZ7YM2`,
+        url: CONSTANT_RESOURCE_MAPPING,
         method: 'GET',
       })
       return data

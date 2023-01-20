@@ -6,7 +6,7 @@ import ProductCard from './ProductCard'
 const AllProducts = () => {
   const { displayedProducts } = useProduct()
 
-  return displayedProducts.length === 0 ? (
+  return displayedProducts.length > 0 ? (
     <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 24]}>
       {displayedProducts.map((product) => (
         <ProductCard key={product._id} product={product} />
