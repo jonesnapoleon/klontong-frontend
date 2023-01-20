@@ -1,3 +1,4 @@
+import { useProduct } from '@/providers/Product/ProductProvider'
 import { CONSTANT_COMPANY_LOGO, CONSTANT_FRONTEND_URL } from '@/utils/constants'
 import { Col, Input, Layout, Row, Space } from 'antd'
 import Image from 'next/image'
@@ -6,6 +7,7 @@ import AddProductButton from '../@AddProduct/AddProductButton'
 
 const Navbar = () => {
   const { pathname, push } = useRouter()
+  const { query, setQuery } = useProduct()
 
   return (
     <Layout.Header>
@@ -25,7 +27,8 @@ const Navbar = () => {
                 addonBefore=""
                 placeholder="Search product..."
                 allowClear
-                onSearch={() => {}}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 style={{ width: 280, verticalAlign: 'middle' }}
               />
             )}

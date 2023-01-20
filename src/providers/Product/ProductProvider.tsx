@@ -23,7 +23,7 @@ type IProductProviderReturnValue = {
   products: AtLeastOne<Product>[]
   searchResults: AtLeastOne<Product>[]
   query: string
-  setQuery: SetStateAction<Dispatch<string>>
+  setQuery: Dispatch<SetStateAction<string>>
   obtainProductDataFromId: (id: string) => AtLeastOne<Product> | undefined
 }
 
@@ -35,7 +35,7 @@ const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
   const searchResults = useMemo(
     () =>
       products?.filter((product) =>
-        product?.name?.includes(query.toLowerCase().trim())
+        product?.name?.toLowerCase()?.includes(query.toLowerCase().trim())
       ) ?? [],
     [query, products]
   )
