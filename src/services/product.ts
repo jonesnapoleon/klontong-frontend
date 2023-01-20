@@ -1,6 +1,6 @@
 import { CONSTANT_RESOURCE_MAPPING } from '@/utils/constants'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import abstractFetcher, { IError } from './api/fetcher'
 import { IProductDataResponse, IProductDatumResponse } from './type'
 
@@ -10,12 +10,20 @@ export const useProductQuery = () => {
     setHydrated(true)
   }, [])
 
-  const isClient = hydrated && typeof window !== 'undefined'
-  const item = isClient
+  const item = hydrated
     ? window.localStorage.getItem(CONSTANT_RESOURCE_MAPPING) ?? ''
     : ''
 
-  const placeholderData = isClient && !!item ? JSON.parse(item) : []
+  const placeholderData = useMemo(
+    () => (hydrated && !!item ? JSON.parse(item) : []),
+    [hydrated, item]
+  )
+
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    queryClient.setQueryData([CONSTANT_RESOURCE_MAPPING], placeholderData)
+  }, [placeholderData, queryClient])
 
   return useQuery<IProductDataResponse, IError>(
     [CONSTANT_RESOURCE_MAPPING],
@@ -27,10 +35,10 @@ export const useProductQuery = () => {
       return data
     },
     {
-      enabled: isClient && !item,
+      enabled: hydrated && !item,
       placeholderData,
       onSuccess: (data: IProductDataResponse) => {
-        if (isClient)
+        if (hydrated)
           window.localStorage.setItem(
             CONSTANT_RESOURCE_MAPPING,
             JSON.stringify(data)
@@ -57,7 +65,13 @@ export const useProductMutation = () => {
         queryClient.setQueryData<IProductDataResponse>(
           [CONSTANT_RESOURCE_MAPPING],
           (currentProducts: IProductDataResponse | undefined) => {
-            return [...(currentProducts ?? []), newProduct]
+            const finalProducts = [...(currentProducts ?? []), newProduct]
+            if (typeof window !== 'undefined')
+              window.localStorage.setItem(
+                CONSTANT_RESOURCE_MAPPING,
+                JSON.stringify(finalProducts)
+              )
+            return finalProducts
           }
         )
       },

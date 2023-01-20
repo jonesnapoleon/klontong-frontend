@@ -59,7 +59,7 @@ const ProductProvider: React.FC<IProductProviderProps> = ({ children }) => {
     products?.filter((product) => product._id === id)?.[0]
 
   useEffect(() => {
-    if (searchResults.length > paginationPage * ITEM_PER_PAGE) return
+    if (searchResults.length >= (paginationPage - 1) * ITEM_PER_PAGE) return
     setPaginationPage(1)
   }, [searchResults, paginationPage])
 
