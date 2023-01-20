@@ -5,12 +5,14 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import AddProductButton from '../@AddProduct/AddProductButton'
 
+import styles from './skeleton.module.css'
+
 const Navbar = () => {
   const { pathname, push } = useRouter()
   const { query, setQuery } = useProduct()
 
   return (
-    <Layout.Header>
+    <Layout.Header className={styles.header}>
       <Row>
         <Col flex="auto">
           <Space>

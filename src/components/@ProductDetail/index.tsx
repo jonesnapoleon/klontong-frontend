@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { obtainColorFromCategory } from '@/providers/Product/helper'
 import { Product, ProductCategoryType } from '@/providers/Product/type'
-import { AtLeastOne } from '@/services/type'
 import { formatIDR } from '@/utils/transformers'
 import { Button, Col, Row, Space, Tag, Typography } from 'antd'
 import styles from './productdetail.module.css'
 
 type IProductDetailProps = {
-  product: AtLeastOne<Product>
+  product: Product
 }
 
 const ProductDetail: React.FC<IProductDetailProps> = ({ product }) => {

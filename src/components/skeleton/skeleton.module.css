@@ -1,12 +1,16 @@
 .layout_content {
   padding: 28px 50px 28px;
   min-height: calc(100vh - 64px - 64px) !important;
-  display: grid;
-  place-items: center;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 685px) {
   .layout_content {
-    padding: calc(28px + 40px) 50px 28px;
+    padding: calc(28px + 40px) 30px 28px;
+    display: grid;
+    place-items: center;
+  }
+
+  .header {
+    padding-inline: 30px !important;
   }
 }

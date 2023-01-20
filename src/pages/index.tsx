@@ -1,4 +1,5 @@
 import AllProducts from '@/components/@Home'
+import PaginationArea from '@/components/@Home/Pagination'
 import HeadTag from '@/components/meta'
 
 const HomePage = () => {
@@ -8,6 +9,7 @@ const HomePage = () => {
         title="All Products"
         description="All products, reserved by Klontong"
       />
+      <PaginationArea />
       <AllProducts />
     </>
   )

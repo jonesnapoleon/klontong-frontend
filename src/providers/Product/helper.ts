@@ -8,9 +8,10 @@ export const obtainColorFromCategory = (
     '#2db7f5',
     '#87d068',
     '#108ee9',
-    '#cde',
-    '#5f4',
+    '#13c2c2',
+    '#9254de',
   ]
+
   const index = Object.keys(ProductCategoryType).indexOf(categoryName)
 
   return availableColors[index]

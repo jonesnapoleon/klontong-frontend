@@ -10,7 +10,7 @@ export enum ProductCategoryType {
 export type Product = {
   _id: string
   name: string
-  categoryName: string
+  categoryName: ProductCategoryType
   description: string
   image: string
   price: number // modified from 'harga' to uniformize code in English

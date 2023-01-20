@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Product } from '@/providers/Product/type'
-import { AtLeastOne } from '@/services/type'
 import { formatIDR } from '@/utils/transformers'
 import { Card, Col } from 'antd'
 import { useRouter } from 'next/router'
 
 type IProductCardProps = {
-  product: AtLeastOne<Product>
+  product: Product
 }
 
 const ProductCard = ({ product }: IProductCardProps) => {
@@ -20,6 +19,7 @@ const ProductCard = ({ product }: IProductCardProps) => {
         style={{ width: '100%', height: '100%', position: 'relative' }}
         cover={
           <img
+            loading="lazy"
             alt={product.description ?? product.name ?? ''}
             src={product.image!}
           />
