@@ -1,9 +1,22 @@
 import { CONSTANT_RESOURCE_MAPPING } from '@/utils/constants'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import abstractFetcher, { IError } from './api/fetcher'
 import { IProductDataResponse, IProductDatumResponse } from './type'
 
 export const useProductQuery = () => {
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => {
+    setHydrated(true)
+  }, [])
+
+  const isClient = hydrated && typeof window !== 'undefined'
+  const item = isClient
+    ? window.localStorage.getItem(CONSTANT_RESOURCE_MAPPING) ?? ''
+    : ''
+
+  const placeholderData = isClient && !!item ? JSON.parse(item) : []
+
   return useQuery<IProductDataResponse, IError>(
     [CONSTANT_RESOURCE_MAPPING],
     async () => {
@@ -12,6 +25,17 @@ export const useProductQuery = () => {
         method: 'GET',
       })
       return data
+    },
+    {
+      enabled: isClient && !item,
+      placeholderData,
+      onSuccess: (data: IProductDataResponse) => {
+        if (isClient)
+          window.localStorage.setItem(
+            CONSTANT_RESOURCE_MAPPING,
+            JSON.stringify(data)
+          )
+      },
     }
   )
 }
@@ -33,7 +57,6 @@ export const useProductMutation = () => {
         queryClient.setQueryData<IProductDataResponse>(
           [CONSTANT_RESOURCE_MAPPING],
           (currentProducts: IProductDataResponse | undefined) => {
-            console.log(currentProducts, newProduct)
             return [...(currentProducts ?? []), newProduct]
           }
         )
