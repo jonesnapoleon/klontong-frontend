@@ -1,3 +1,4 @@
+import { openNotification } from '@/components/meta/snackbar'
 import { CONSTANT_RESOURCE_MAPPING } from '@/utils/constants'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
@@ -73,6 +74,17 @@ export const useProductMutation = () => {
               )
             return finalProducts
           }
+        )
+        openNotification(
+          'Success',
+          `New product added: ${newProduct.name}`,
+          'success'
+        )
+      },
+      onError: (error: any) => {
+        openNotification(
+          "Something's wrong",
+          error?.errorFields?.[0]?.errors?.[0] ?? ''
         )
       },
     }

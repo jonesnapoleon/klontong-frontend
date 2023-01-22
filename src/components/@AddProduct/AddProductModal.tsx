@@ -28,7 +28,6 @@ const AddProductModal = ({ isOpen, closeModal }: IAddProductModal) => {
       layout="horizontal"
       onFinish={(values) => {
         mutate(values)
-        openNotification('Success', `New product added: ${values.name}`)
         closeModal()
       }}
       onFinishFailed={onFinishFailed}
